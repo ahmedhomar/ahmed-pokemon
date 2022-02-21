@@ -1,4 +1,4 @@
-import { pokemonArray } from "./data/pokemon";
+import { pokemonArray } from "./data/pokemon.js";
 
 // Variables
 
@@ -6,16 +6,17 @@ const pokemonCardsContainer = document.querySelector(".card-container");
 
 // Functions
 
-const insertPokemonHtml = () => {
+const insertPokemonHtml = (e) => {
   pokemonCardsContainer.innerHTML = "";
   pokemonArray.forEach((element) => {
     pokemonCardsContainer.innerHTML += `
+    <img src = "${element.sprite}">
 		<div>
-       <img src =${element.sprite}>
-			<h2>name: ${element.name}</h2>
+			<h3>name: ${element.name}</h3>
 			<p> ${element.name}(#${element.id}) is a ${element.types[0]} & ${element.types[1]} type Pokemon</p	
 		</div>`;
   });
 };
+// Event Listener
 
 pokemonCardsContainer.addEventListener("click", insertPokemonHtml);
