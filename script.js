@@ -1,4 +1,4 @@
-import { pokemonArray } from "./data/pokemon.js";
+import pokemonArray from "./data/pokemon.js";
 
 // Variables
 
@@ -6,17 +6,30 @@ const pokemonCardsContainer = document.querySelector(".card-container");
 
 // Functions
 
-const insertPokemonHtml = (e) => {
-  pokemonCardsContainer.innerHTML = "";
-  pokemonArray.forEach((element) => {
-    return (pokemonCardsContainer.innerHTML += `
-    <img src =${element.sprite}>
+const capitaliseFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+const getTypestext = (types) => {
+  if (types.length === 1) {
+    return types[0];
+  }
+  if (types.length === 2) {
+    return `${types[0]} & ${types[1]} `;
+  }
+  console.error("unhandled type array");
+};
+
+const insertPokemonHtml = () => {
+  pokemonArray.forEach((pokemon) => {
+    const capitalisedName = capitaliseFirstLetter(pokemon.name);
+    const typesText = getTypestext(pokemon.types);
+    pokemonCardsContainer.innerHTML += `
+    <img src ="${pokemon.sprite}">
 		<div>
-			<h3>name: ${element.name}</h3>
-			<p> ${element.name}(#${element.id}) is a ${element.types[0]} & ${element.types[1]} type Pokemon</p	
-		</div>`);
+			<h2>name: ${capitalisedName}</h2>
+			<p class ="card-text"> ${capitalisedName}(#${pokemon.id}) is a ${typesText} type Pokemon</p	
+		</div>`;
   });
 };
-// Event Listener
-
-pokemonCardsContainer.addEventListener("click", insertPokemonHtml);
+insertPokemonHtml();
